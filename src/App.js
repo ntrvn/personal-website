@@ -1,5 +1,6 @@
 import React from 'react';
 import Terminal from './Terminal';
+import Info from './Info';
 
 const intro = `Hello, I hope you have a nice day!
 I am Nhan Tran, seinor standing at USC studying Computer Science.
@@ -24,6 +25,7 @@ class App extends React.Component {
   }
 
   handleKeyPress = (event) => {
+    event.preventDefault()
     if (event.key === 'Enter') {
       if (this.state.firstEnter === false) {
         this.setState({firstEnter : true});
@@ -116,6 +118,7 @@ class App extends React.Component {
           :
           <Terminal text={this.state.text} running={false} />
         }
+        <Info />
       </div>
     );
   }
