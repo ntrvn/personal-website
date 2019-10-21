@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { withStyles } from '@material-ui/core';
 
 const styles = {
@@ -14,7 +14,7 @@ const styles = {
         display: "block",
         width: "700px",
         height: "25px",
-        backgroundColor: "rgb(254, 254, 254)",
+        backgroundColor: "rgb(220, 220, 220)",
         borderTopLeftRadius: "5px",
         borderTopRightRadius: "5px",
     },
@@ -34,6 +34,7 @@ const styles = {
         outline: "none",
         borderBottomLeftRadius: "5px",
         borderBottomRightRadius: "5px",
+        overflowY: "scroll"
     },
     displayText: {
         paddingTop: 10,
@@ -51,6 +52,7 @@ const Terminal = (props) => {
     const [header, setHeader] = useState("");
     const [index, setIndex] = useState(0);
     const [blink,setBlink] = useState(true);
+    const textEndRef = useRef(null);
     const classes = props.classes;
   
     // running text animation
@@ -68,6 +70,13 @@ const Terminal = (props) => {
       }, 300)
       return blink;
     }
+
+    // scroll to bottom of terminal
+    const scrollToBotoom = () => {
+        textEndRef.current.scrollIntoView({behavior: "smooth"});
+    }
+    useEffect(scrollToBotoom, [text]);
+
   
     return (
         <div className={classes.box}>
@@ -104,9 +113,11 @@ const Terminal = (props) => {
                                         {(blinking() && key===text.split("\n").length-1) ? "|" : ""}
                                     </p>
                             }) : <p className={classes.text}>{text}{blinking() ? "|" : ""}</p>}
+                            
                         </div>
                     )
                 }
+                <div ref={textEndRef} />
             </div>
         </div>
     );
