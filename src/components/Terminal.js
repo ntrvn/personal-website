@@ -77,9 +77,14 @@ const Terminal = (props) => {
     }
     useEffect(scrollToBotoom, [text]);
 
-  
+    // bring terminal window back to front
+    const handleClicked = () => {
+        console.log("here");
+        props.onChangeIndex();
+    }
+
     return (
-        <div className={classes.box}>
+        <div className={classes.box} style={{zIndex: `${props.index}`}} onClick={handleClicked}>
             <div className={classes.navbar}>
                 <div
                     className={classes.circle}

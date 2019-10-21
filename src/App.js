@@ -12,7 +12,7 @@ const openErrors = [`open: please enter a file name`, `open: not a file: `, `ope
 const data = {
   NhanTran: "Experience Projects About",
   Experience: `Macys.txt J2Global.txt USC.txt`,
-  Projects: `ImHungry.txt SCroup.txt PersonalWebsite.txt`
+  Projects: `PersonalWebsite.txt ImHungry.txt SCroup.txt BarCrawler.txt`
 };
 const ExperienceData = {
   "Macys.txt": {
@@ -34,6 +34,30 @@ const ExperienceData = {
     detail: [`I was a teaching assistant for Viterbi School of Engineering.`,
     `I Conducted office hours with a team of 4 TAs for 50+ students, covering various topics related to full-stack web development. Additional responsibilities included helping debug code during lecture, and grading assignments.`,
     `I Acted as PM for students' final projects. Assisted in defining scope for projects as well as technical feasibility.`]
+  },
+  "PersonalWebsite.txt": {
+    title: "Personal Website",
+    detail: [`I took a different approach when creating my personal website. I want it to be interactive, and engaging, that's why I decided to make a Terminal emulator.`, `
+    every functionality of this website is correctly implemented, most of the commands like 'ls', 'cd', 'open' are not hardcoded. the entire site is built with React JS (my favorite front-end framework) and hosted in Heroku.`,
+    `Github repo: https://github.com/ntrvn/personal-website`]
+  },
+  "ImHungry.txt": {
+    title: "Im Hungry",
+    detail: [`As a part of my Software Engineering class, I Built a restaurant and recipe recommendation web application with three USC students by using Yelp and Spoonacular APIs.`,
+    ` Me and another teammate wrote all of the frontend code as well as frontend acceptance tests using Cucumber testing tool, and followed a continuous integration release.`,
+    `Github repo: https://github.com/joshmin98/Im_Hungry_Redux`]
+  },
+  "SCroup.txt": {
+    title: "SCroup",
+    detail: [`As me and my friends stuggle to find study group for classes that we are in. 4 of us Developed a web application to assist USC students to find study groups based on their schedules and classes.`,
+    `We Implemented recommendation system based on matching user profiles and availabilities. Integrated chat and file sharing functionalities to facilitate group communication.`,
+    `Github repo: https://github.com/PeterYangIO/SCroup`]
+  },
+  "BarCrawler.txt": {
+    title: "BarCrawler",
+    detail: [`This is my first full stack application that I've ever wrote. It was my final project for a Web Development class. I love find new new bars around me and made this application so that it would be easier for me to do it.`,
+    `I used Google API to get all the bars info around me and also implemented CRUD functionality where users can add/reomve bars from their saved list.`,
+    `Github repo: https://github.com/ntrvn/barCrawler`]
   }
 }
 const doNotRegisters = ["Meta", "Alt", "Control", "Shift", "Caps", "LockTab", "ArrowRight", "ArrowLeft" , "ArrowDown" , "ArrowUp"];
@@ -46,7 +70,11 @@ class App extends React.Component {
     lineCommand: "",
     currDirectoryText: "~/NhanTran",
     currDirectory: "NhanTran",
-    filesOpened: []
+    filesOpened: [],
+    indexes: {
+      terminal : -1,
+      browser: 1
+    }
   }
 
   handleKeyPress = (event) => {
@@ -87,6 +115,7 @@ class App extends React.Component {
             }
           }
         } else if (this.state.lineCommand.includes("open")) {
+          this.bringToBack();
           const open = this.state.lineCommand.split(" ");
           if (open.length !== 2) this.setState({text: `${this.state.text} \n ${openErrors[0]} \n ${this.state.currDirectoryText} > `});
           else {
@@ -140,6 +169,24 @@ class App extends React.Component {
     }
   }
 
+  bringToFront = () => {
+    this.setState({
+      indexes: {
+        terminal : 1,
+        browser: -1
+      }
+    });
+  }
+
+  bringToBack = () => {
+    this.setState({
+      indexes: {
+        terminal : -1,
+        browser: 1
+      }
+    });
+  }
+
   componentDidMount(){
     document.addEventListener("keydown", this.handleKeyPress, false);
   }
@@ -152,14 +199,14 @@ class App extends React.Component {
     return (
       <div>
         {this.state.firstEnter === false ? 
-          <Terminal text={intro} running={true} />
+          <Terminal text={intro} running={true} index={this.state.indexes.terminal} onChangeIndex={this.bringToFront} />
           :
-          <Terminal text={this.state.text} running={false} />
+          <Terminal text={this.state.text} running={false} index={this.state.indexes.terminal} onChangeIndex={this.bringToFront} />
         }
         <Info />
         {
           this.state.filesOpened !== [] && this.state.filesOpened.map((el,i) => {
-            return <BrowserEmulator key={i} title={el} data={ExperienceData[el]} />
+            return <BrowserEmulator key={i} title={el} data={ExperienceData[el]} index={this.state.indexes.browser} />
           })
         }
       </div>

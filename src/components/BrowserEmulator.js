@@ -49,7 +49,7 @@ const BrowserEmulator = (props) => {
     const classes = props.classes
     const data = props.data;
     return (
-        <div className={classes.root}>
+        <div className={classes.root} style={{zIndex: `${props.index}`}}>
             <div className={classes.header}>
                 <div
                     className={classes.circle}
