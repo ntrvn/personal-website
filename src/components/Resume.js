@@ -11,12 +11,10 @@ const style = {
         bottom: '25px',
         right: '100px',
     },
-    button: {
-        marginTop: '-35px'
-    },
     link: {
         textDecoration: "none",
-        color: "white"
+        color: "white",
+        marginTop: '-35px'
     },
 }
 
@@ -40,9 +38,11 @@ const Resume = (props) => {
                 <Document file={nhantran} className={classes.dialogContent}>
                     <Page pageNumber={1} height={600} />
                 </Document>
-                <Button variant="contained" className={classes.button} color="primary" fullWidth={true}>
-                    <a href={nhantran} className={classes.link} download>Download</a>
-                </Button>
+                <a href={nhantran} className={classes.link} download>
+                    <Button variant="contained" color="primary" fullWidth={true}>
+                        Download
+                    </Button>
+                </a>
             </Dialog>
         </div>
     )
