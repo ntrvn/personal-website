@@ -48,12 +48,19 @@ const styles = {
 const BrowserEmulator = (props) => {
     const classes = props.classes
     const data = props.data;
+    const handleClicked = () => {
+        props.onChangeIndex();
+    }
+    const handleClose = () => {
+        props.onCloseBrowser();
+    }
     return (
-        <div className={classes.root} style={{zIndex: `${props.index}`}}>
+        <div className={classes.root} style={{zIndex: `${props.index}`}} onClick={handleClicked}>
             <div className={classes.header}>
                 <div
                     className={classes.circle}
                     style={{ backgroundColor: "rgb(255, 59, 71)" }}
+                    onClick={handleClose}
                 />
                 <div
                     className={classes.circle}

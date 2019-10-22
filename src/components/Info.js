@@ -61,10 +61,11 @@ const Info = (props) => {
                         <p className={classes.p}>&nbsp; ls - to see all files and directories in the current directory.</p>
                         <p className={classes.p}>&nbsp; cd DIRECTORY-NAME - to go into a directory (hit tab while typing directory name for auto-complete).</p>
                         <p className={classes.p}>&nbsp; cd .. - to go back to parent directory. </p>
-                        <p className={classes.p}>&nbsp; open FILENAME - to open all .txt file</p>
+                        <p className={classes.p}>&nbsp; open FILENAME - to open all .txt files</p>
                         <p className={classes.p}>&nbsp; clear to clear all text inside the terminal.</p>
                         <p className={classes.p}></p>
                         <p className={classes.p}>Once a txt file is opened. You can click back to the terminal window to execute other commands and open other files.</p>
+                        <p className={classes.p}>You can also close the txt file window by clicking on the red circle on the top left of the txt file window</p>
                     </div>
             </Popover>        
         </div>

@@ -12,7 +12,8 @@ const openErrors = [`open: please enter a file name`, `open: not a file: `, `ope
 const data = {
   NhanTran: "Experience Projects About",
   Experience: `Macys.txt J2Global.txt USC.txt`,
-  Projects: `PersonalWebsite.txt ImHungry.txt SCroup.txt BarCrawler.txt`
+  Projects: `PersonalWebsite.txt ImHungry.txt SCroup.txt BarCrawler.txt`,
+  About: `NhanTran.txt`
 };
 const ExperienceData = {
   "Macys.txt": {
@@ -38,7 +39,7 @@ const ExperienceData = {
   "PersonalWebsite.txt": {
     title: "Personal Website",
     detail: [`I took a different approach when creating my personal website. I want it to be interactive, and engaging, that's why I decided to make a Terminal emulator.`, `
-    every functionality of this website is correctly implemented, most of the commands like 'ls', 'cd', 'open' are not hardcoded. the entire site is built with React JS (my favorite front-end framework) and hosted in Heroku.`,
+    every functionality of this website is correctly implemented, most of the commands like 'ls', 'cd', 'open' are not hardcoded. the entire site is built with React JS (my favorite front-end framework) and hosted on Heroku.`,
     `Github repo: https://github.com/ntrvn/personal-website`]
   },
   "ImHungry.txt": {
@@ -58,6 +59,10 @@ const ExperienceData = {
     detail: [`This is my first full stack application that I've ever wrote. It was my final project for a Web Development class. I love find new new bars around me and made this application so that it would be easier for me to do it.`,
     `I used Google API to get all the bars info around me and also implemented CRUD functionality where users can add/reomve bars from their saved list.`,
     `Github repo: https://github.com/ntrvn/barCrawler`]
+  },
+  "NhanTran.txt": {
+    title: "Nhan Tran",
+    detail: [`Connect with me on LinkedIn: https://www.linkedin.com/in/nhandattran/`]
   }
 }
 const doNotRegisters = ["Meta", "Alt", "Control", "Shift", "Caps", "LockTab", "ArrowRight", "ArrowLeft" , "ArrowDown" , "ArrowUp"];
@@ -151,9 +156,9 @@ class App extends React.Component {
       if (this.state.lineCommand.includes("cd") || this.state.lineCommand.includes("open")) {
         const files = data[this.state.currDirectory].split(" ");
         const fileName = this.state.lineCommand.split(" ");
-        files.forEach(el => {
+        fileName.length === 2 && files.forEach(el => {
           const temp = el.substring(0, fileName[1].length).toLowerCase();
-          if (temp === fileName[1].toLowerCase()) {
+          if (temp === fileName[1].toLowerCase() && temp !== "" && fileName !== "") {
             this.setState({
               text: this.state.text.substring(0, this.state.text.length-temp.length) + el,
               lineCommand: `${fileName[0]} ${el}`
@@ -187,6 +192,14 @@ class App extends React.Component {
     });
   }
 
+
+  handleCloseBrowser = () => {
+    let newArr = this.state.filesOpened;
+    newArr.length > 1 ? newArr.pop() : newArr = [];
+    this.setState({filesOpened: newArr});
+  }
+
+
   componentDidMount(){
     document.addEventListener("keydown", this.handleKeyPress, false);
   }
@@ -206,7 +219,7 @@ class App extends React.Component {
         <Info />
         {
           this.state.filesOpened !== [] && this.state.filesOpened.map((el,i) => {
-            return <BrowserEmulator key={i} title={el} data={ExperienceData[el]} index={this.state.indexes.browser} />
+            return <BrowserEmulator key={i} title={el} data={ExperienceData[el]} index={this.state.indexes.browser} onChangeIndex={this.bringToBack} onCloseBrowser={this.handleCloseBrowser}/>
           })
         }
       </div>
