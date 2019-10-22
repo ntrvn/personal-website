@@ -2,6 +2,7 @@ import React from 'react';
 import Terminal from './components/Terminal';
 import Info from './components/Info';
 import BrowserEmulator from './components/BrowserEmulator';
+import Resume from './components/Resume';
 
 const intro = `Hello, I hope you have a nice day!
 I am Nhan Tran, senior standing at USC studying Computer Science.
@@ -212,6 +213,7 @@ class App extends React.Component {
           <Terminal text={this.state.text} running={false} index={this.state.indexes.terminal} onChangeIndex={this.bringToFront} />
         }
         <Info />
+        <Resume />
         {
           this.state.filesOpened !== [] && this.state.filesOpened.map((el,i) => {
             return <BrowserEmulator key={i} title={el} data={ExperienceData[el]} index={this.state.indexes.browser} onChangeIndex={this.bringToBack} onCloseBrowser={this.handleCloseBrowser}/>
