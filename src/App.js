@@ -4,7 +4,7 @@ import Info from './components/Info';
 import BrowserEmulator from './components/BrowserEmulator';
 
 const intro = `Hello, I hope you have a nice day!
-I am Nhan Tran, seinor standing at USC studying Computer Science.
+I am Nhan Tran, senior standing at USC studying Computer Science.
 Please hit ENTER to learn more about me `;
 const error = `bash: command not found`;
 const cdErrors = [`cd: not a directory: `, `cd: no such file or directory:`];
@@ -127,7 +127,6 @@ class App extends React.Component {
             if (!open[1].includes(".txt")) this.setState({text: `${this.state.text} \n ${openErrors[1]} ${open[1]} \n ${this.state.currDirectoryText} > `});
             else if (!data[this.state.currDirectory].includes(open[1])) this.setState({text: `${this.state.text} \n ${openErrors[2]} ${open[1]} \n ${this.state.currDirectoryText} > `});
             else {
-              console.log("here");
               this.setState({
                 filesOpened: this.state.filesOpened.concat(open[1]),
                 text: `${this.state.text} \n ${this.state.currDirectoryText} > `
@@ -135,8 +134,6 @@ class App extends React.Component {
             }
           }
         } else if (this.state.lineCommand.includes("clear")) {
-          console.log(this.state.currDirectory);
-          console.log(this.state.currDirectoryText);
           this.setState({text: `${this.state.currDirectoryText} > `})
         } else if (this.state.lineCommand === "") {
           this.setState({text: `${this.state.text} \n ${this.state.currDirectoryText} > `})
@@ -192,7 +189,6 @@ class App extends React.Component {
     });
   }
 
-
   handleCloseBrowser = () => {
     let newArr = this.state.filesOpened;
     newArr.length > 1 ? newArr.pop() : newArr = [];
@@ -208,7 +204,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.filesOpened);
     return (
       <div>
         {this.state.firstEnter === false ? 
