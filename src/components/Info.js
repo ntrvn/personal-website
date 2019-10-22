@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { withStyles } from '@material-ui/styles';
-import { Paper, Popover, Fab } from '@material-ui/core';
+import { Popover, Fab } from '@material-ui/core';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 const Styles = {
@@ -61,8 +61,10 @@ const Info = (props) => {
                         <p className={classes.p}>&nbsp; ls - to see all files and directories in the current directory.</p>
                         <p className={classes.p}>&nbsp; cd DIRECTORY-NAME - to go into a directory (hit tab while typing directory name for auto-complete).</p>
                         <p className={classes.p}>&nbsp; cd .. - to go back to parent directory. </p>
-                        <p className={classes.p}>&nbsp; open FILENAME - to open all .txt file (or you can click on the file to open it).</p>
+                        <p className={classes.p}>&nbsp; open FILENAME - to open all .txt file</p>
                         <p className={classes.p}>&nbsp; clear to clear all text inside the terminal.</p>
+                        <p className={classes.p}></p>
+                        <p className={classes.p}>Once a txt file is opened. You can click back to the terminal window to execute other commands and open other files.</p>
                     </div>
             </Popover>        
         </div>
